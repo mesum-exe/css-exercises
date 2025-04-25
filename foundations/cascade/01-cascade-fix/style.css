@@ -1,42 +1,71 @@
-body {
+/* This effects the type=<body> */
+
+body { 
   font-family: Arial, Helvetica, sans-serif;
 }
+/* This is okay because font-family does not contradict anything else */
+
+/* This effects both class=para, and class=small-para */
 
 .para,
-.small-para {
+.small-para { 
   color: hsl(0, 0%, 0%);
   font-weight: 800;
-}
-
-.small-para {
-  font-size: 14px;
-  font-weight: 800;
-}
-
-.para {
   font-size: 22px;
 }
 
-.confirm {
+/* This effects class=small-para */
+
+.para.small-para {
+  font-size: 14px;
+  font-weight: 800;
+}
+/* Problem: font-size is not applied because .para selecter is after it */
+/* Fix: .para.small-para */
+
+/* This effects class=para */
+/* remove it - move font-size to the more general block */
+
+/* This effects class=confirm */
+
+.button.confirm {
   background: green;
   color: white;
   font-weight: bold;
 } 
+/* next selector takes precendence -> make more specific -> .button.confirm */
+
+/* This effects class=button */
 
 .button {
   background-color: rgb(255, 255, 255);
   color: rgb(0, 0, 0);
   font-size: 20px;
 }
+/* don't change, font-size needs to apply to both buttons. other conflicts are solved. */
 
-.child {
+/* This effects class=child */
+
+.text.child {
   color: rgb(0, 0, 0);
   font-weight: 800;
   font-size: 14px;
 }
+/* div.text takes priority */
+/* make more specific -> .text.child */
+
+/* This effects type=<div> WHICH ALSO has a class=text */
 
 div.text {
   color: rgb(0, 0, 0);
   font-size: 22px;
   font-weight: 100;
 }
+/* no change needed */
+
+/* SPECIFICITY RANKING: 
+8         - only effects an element with class A and class B
+3,4,5,6,7 - effects class A
+2         - effects elements with class A or class B
+1         - effects all elements in body
+*/
